@@ -1,8 +1,12 @@
 const add = function (strNumbers = "") {
-  return strNumbers
+  return stringToNumbers(strNumbers).reduce((init, n) => init + n, 0);
+};
+
+const stringToNumbers = function (str) {
+  return str
     .split(",")
-    .map(Number)
-    .reduce((init, n) => init + n, 0);
+    .flatMap((x) => x.split("\n"))
+    .map(Number);
 };
 
 module.exports = add;

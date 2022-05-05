@@ -21,4 +21,8 @@ describe("Add", () => {
   it("should add n numbers provided string of n numbers comma separated", () => {
     expect(add("1,3,4,5,6")).toBe(19);
   });
+
+  it("should add numbers separated by new line", () => {
+    expect(add("1\n2,3")).toBe(6);
+  });
 });
