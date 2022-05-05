@@ -1,5 +1,5 @@
-const add = function () {
-  return 0;
+const add = function (strNumber = '') {
+  return Number(strNumber);
 };
 
 module.exports = add;
