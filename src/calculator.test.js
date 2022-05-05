@@ -17,4 +17,8 @@ describe("Add", () => {
     expect(add("1,3")).toBe(4);
     expect(add("0,2")).toBe(2);
   });
+
+  it("should add n numbers provided string of n numbers comma separated", () => {
+    expect(add("1,3,4,5,6")).toBe(19);
+  });
 });
