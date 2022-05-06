@@ -7,13 +7,13 @@ const stringToNumbers = function (str) {
   return str
     .split(",")
     .flatMap((x) => x.split("\n"))
-    .filter(isNumber)
+    .filter(s => isNumber(str, s))
     .map(Number);
 };
 
-const isNumber = function (str) {
-  if (str === "" || isNaN(str)) {
-    throw "Invalid Input";
+const isNumber = function (str, s) {
+  if (s === "" || isNaN(s)) {
+    throw `Invalid Input : ${str}`;
   }
   return true;
 };

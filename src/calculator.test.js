@@ -30,15 +30,15 @@ describe("Add", () => {
     try {
       add("1,\n");
     } catch (err) {
-      expect(err).toBe("Invalid Input");
+      expect(err).toBe("Invalid Input : 1,\n");
     }
   });
 
   it("should not allow input with only ','", () => {
     try {
-      add("1,\n");
+      add(",");
     } catch (err) {
-      expect(err).toBe("Invalid Input");
+      expect(err).toBe("Invalid Input : ,");
     }
   });
 
@@ -46,7 +46,7 @@ describe("Add", () => {
     try {
       add("a,b");
     } catch (err) {
-      expect(err).toBe("Invalid Input");
+      expect(err).toBe("Invalid Input : a,b");
     }
   });
 
@@ -54,7 +54,7 @@ describe("Add", () => {
     try {
       add("1,a,b,1");
     } catch (err) {
-      expect(err).toBe("Invalid Input");
+      expect(err).toBe("Invalid Input : 1,a,b,1");
     }
   });
 });
