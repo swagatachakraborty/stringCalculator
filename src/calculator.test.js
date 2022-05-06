@@ -27,43 +27,23 @@ describe("Add", () => {
   });
 
   it("should not allow input with only '\\n'", () => {
-    try {
-      add("1,\n");
-    } catch (err) {
-      expect(err).toBe("Invalid Input : 1,\n");
-    }
+    expect(() => add("1,\n")).toThrow("Invalid Input : 1,\n");
   });
 
   it("should not allow input with only ','", () => {
-    try {
-      add(",");
-    } catch (err) {
-      expect(err).toBe("Invalid Input : ,");
-    }
+    expect(() => add(",")).toThrow("Invalid Input : ,");
   });
 
   it("should not allow only alphabets as inputs", () => {
-    try {
-      add("a,b");
-    } catch (err) {
-      expect(err).toBe("Invalid Input : a,b");
-    }
+    expect(() => add("a,b")).toThrow("Invalid Input : a,b");
   });
 
   it("should not allow numbers with alphabets as inputs", () => {
-    try {
-      add("1,a,b,1");
-    } catch (err) {
-      expect(err).toBe("Invalid Input : 1,a,b,1");
-    }
+    expect(() => add("1,a,b,1")).toThrow("Invalid Input : 1,a,b,1");
   });
 
   it("should not allow negetive numbers as inputs", () => {
-    try {
-      add("-1,1,-1");
-    } catch (err) {
-      expect(err).toBe("Negatives not allowed : -1,-1");
-    }
+    expect(() => add("-1,1,-1")).toThrow("Negatives not allowed : -1,-1");
   });
 
   it("should support different delimiters provided as input as //[delimiter]\\n[numbers…] with 2 inputs", () => {
@@ -74,4 +54,15 @@ describe("Add", () => {
     expect(add("//*#*\n1*#*2*#*3")).toBe(6);
   });
 
+  test("should throw error when delimiter is not provided at the beginning", () => {
+    expect(() => add("1//;\n1;2")).toThrow("Invalid Input : 1//;\n1;2");
+  });
+
+  test("should throw error when input delimiter is not used as a separator", () => {
+    expect(() => add("//;\n1,2")).toThrow("Invalid Input : 1,2");
+  });
+
+  test("should add when there is both user given delimiter and \\n", () => {
+    expect(add("//;\n1;2\n3")).toBe(6);
+  });
 });
