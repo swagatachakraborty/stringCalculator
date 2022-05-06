@@ -57,4 +57,12 @@ describe("Add", () => {
       expect(err).toBe("Invalid Input : 1,a,b,1");
     }
   });
+
+  it("should not allow negetive numbers as inputs", () => {
+    try {
+      add("-1,1,-1");
+    } catch (err) {
+      expect(err).toBe("Negatives not allowed : -1,-1");
+    }
+  });
 });

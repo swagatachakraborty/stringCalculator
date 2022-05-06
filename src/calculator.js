@@ -1,13 +1,17 @@
-const add = function (strNumbers = "") {
-  if (strNumbers === "") return 0;
-  return stringToNumbers(strNumbers).reduce((init, n) => init + n, 0);
+const add = function (strInput = "") {
+  if (strInput === "") return 0;
+
+  const numbers = stringToNumbers(strInput);
+  throwExceptionForNegetiveNumbers(numbers);
+
+  return numbers.reduce((init, n) => init + n);
 };
 
 const stringToNumbers = function (str) {
   return str
     .split(",")
     .flatMap((x) => x.split("\n"))
-    .filter(s => isNumber(str, s))
+    .filter((s) => isNumber(str, s))
     .map(Number);
 };
 
@@ -16,6 +20,13 @@ const isNumber = function (str, s) {
     throw `Invalid Input : ${str}`;
   }
   return true;
+};
+
+const throwExceptionForNegetiveNumbers = function (numbers) {
+  const negetives = numbers.filter((n) => n < 0);
+  if (negetives.length) {
+    throw `Negatives not allowed : ${negetives}`;
+  }
 };
 
 module.exports = add;
