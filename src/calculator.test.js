@@ -65,4 +65,12 @@ describe("Add", () => {
   test("should add when there is both user given delimiter and \\n", () => {
     expect(add("//;\n1;2\n3")).toBe(6);
   });
+
+  test("should ignore numbers bigger than 1000, for 2 inputs", () => {
+    expect(add("1001,2")).toBe(2);
+  });
+
+  test("should ignore numbers bigger than 1000, for 3 inputs", () => {
+    expect(add("1001,2,1000")).toBe(1002);
+  });
 });

@@ -5,7 +5,9 @@ const add = function (strInput = "") {
   const numbers = stringToNumbers(str, del);
 
   throwExceptionForNegetiveNumbers(numbers);
-  return numbers.reduce((init, n) => init + n);
+  return numbers
+    .filter((n) => n <= 1000)
+    .reduce((init, n) => init + n);
 };
 
 const extractDelimiterAndString = function (inputString) {
