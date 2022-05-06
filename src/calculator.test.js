@@ -25,4 +25,36 @@ describe("Add", () => {
   it("should add numbers separated by new line", () => {
     expect(add("1\n2,3")).toBe(6);
   });
+
+  it("should not allow input with only '\\n'", () => {
+    try {
+      add("1,\n");
+    } catch (err) {
+      expect(err).toBe("Invalid Input");
+    }
+  });
+
+  it("should not allow input with only ','", () => {
+    try {
+      add("1,\n");
+    } catch (err) {
+      expect(err).toBe("Invalid Input");
+    }
+  });
+
+  it("should not allow only alphabets as inputs", () => {
+    try {
+      add("a,b");
+    } catch (err) {
+      expect(err).toBe("Invalid Input");
+    }
+  });
+
+  it("should not allow numbers with alphabets as inputs", () => {
+    try {
+      add("1,a,b,1");
+    } catch (err) {
+      expect(err).toBe("Invalid Input");
+    }
+  });
 });
