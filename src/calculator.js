@@ -1,15 +1,28 @@
 const add = function (strInput = "") {
   if (strInput === "") return 0;
 
-  const numbers = stringToNumbers(strInput);
-  throwExceptionForNegetiveNumbers(numbers);
+  const { del, str } = extractDelimiterAndString(strInput);
+  const numbers = stringToNumbers(str, del);
 
+  throwExceptionForNegetiveNumbers(numbers);
   return numbers.reduce((init, n) => init + n);
 };
 
-const stringToNumbers = function (str) {
+const extractDelimiterAndString = function (inputString) {
+  let del = ",", str = inputString;
+
+  if (inputString.startsWith("//") && inputString.includes("\n")) {
+    const i = inputString.indexOf("\n");
+    del = inputString.substring(2, i);
+    str = inputString.substring(i + 1);
+  }
+
+  return { del, str };
+};
+
+const stringToNumbers = function (str, del) {
   return str
-    .split(",")
+    .split(del)
     .flatMap((x) => x.split("\n"))
     .filter((s) => isNumber(str, s))
     .map(Number);

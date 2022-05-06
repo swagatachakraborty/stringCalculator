@@ -65,4 +65,13 @@ describe("Add", () => {
       expect(err).toBe("Negatives not allowed : -1,-1");
     }
   });
+
+  it("should support different delimiters provided as input as //[delimiter]\\n[numbers…] with 2 inputs", () => {
+    expect(add("//;\n1;2")).toBe(3);
+  });
+
+  it("should support different delimiters provided as input as //[delimiter]\\n[numbers…] with 3 inputs", () => {
+    expect(add("//*#*\n1*#*2*#*3")).toBe(6);
+  });
+
 });
