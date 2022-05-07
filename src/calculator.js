@@ -1,8 +1,9 @@
 const add = function (strInput = "") {
   if (strInput === "") return 0;
 
-  const { del, str } = extractDelimiterAndString(strInput);
-  const numbers = stringToNumbers(str, del);
+  const { delStr, numStr } = separateDelsAndNums(strInput);
+  const dels = parseDelimiters(delStr);
+  const numbers = extractNumbers(numStr, dels);
 
   throwExceptionForNegetiveNumbers(numbers);
   return numbers
@@ -10,23 +11,32 @@ const add = function (strInput = "") {
     .reduce((init, n) => init + n);
 };
 
-const extractDelimiterAndString = function (inputString) {
-  let del = ",", str = inputString;
+const separateDelsAndNums = function (inputString) {
+  let delStr = ",", numStr = inputString;
 
   if (inputString.startsWith("//") && inputString.includes("\n")) {
     const i = inputString.indexOf("\n");
-    del = inputString.substring(2, i);
-    str = inputString.substring(i + 1);
+    delStr = inputString.substring(2, i);
+    numStr = inputString.substring(i + 1);
   }
 
-  return { del, str };
+  return { delStr, numStr };
 };
 
-const stringToNumbers = function (str, del) {
+const parseDelimiters = function (dels) {
+  return dels
+    .split("]")
+    .flatMap((x) => x.split("["))
+    .filter((x) => x != "");
+};
+
+const extractNumbers = function (inputStr, dels) {
+  let str = inputStr;
+  dels.forEach((d) => str = str.replaceAll(d, "\n"))
+
   return str
-    .split(del)
-    .flatMap((x) => x.split("\n"))
-    .filter((s) => isNumber(str, s))
+    .split("\n")
+    .filter((s) => isNumber(inputStr, s))
     .map(Number);
 };
 

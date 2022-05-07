@@ -73,4 +73,24 @@ describe("Add", () => {
   test("should ignore numbers bigger than 1000, for 3 inputs", () => {
     expect(add("1001,2,1000")).toBe(1002);
   });
+
+  it("should allow multiple delimiters as //[delim1][delim2]\\n", () => {
+    expect(add("//[*][%]\n1*2%3")).toBe(6);
+  });
+
+  it("should allow multiple delimiters as //[delim1][delim2]\\n of different length", () => {
+    expect(add("//[*$][%]\n1*$2%3")).toBe(6);
+  });
+
+  it("should throw error for negetive numbers with multiple delimiters", () => {
+    expect(() => add("//[*][%]\n1*2%3*-1")).toThrow("Negatives not allowed : -1");
+  });
+
+  it("should throw error for wrong input numbers with multiple delimiters", () => {
+    expect(() => add("//[@][#]\n1@3#4\n")).toThrow("Invalid Input : 1@3#4\n");
+  });
+
+  it("should add when input separeted by multiple delimiters and new line", () => {
+    expect(add("//[*][%]\n1*3%4\n2")).toBe(10);
+  });
 });

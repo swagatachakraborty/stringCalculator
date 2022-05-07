@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Calculator that takes up to two numbers, separated by commas, and returns their sum",
   "main": "app.js",
+  "engines" : { 
+    "node" : "^16.0.0"
+  },
   "scripts": {
     "test": "jest"
   },
