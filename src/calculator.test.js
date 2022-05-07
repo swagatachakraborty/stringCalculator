@@ -54,23 +54,23 @@ describe("Add", () => {
     expect(add("//*#*\n1*#*2*#*3")).toBe(6);
   });
 
-  test("should throw error when delimiter is not provided at the beginning", () => {
+  it("should throw error when delimiter is not provided at the beginning", () => {
     expect(() => add("1//;\n1;2")).toThrow("Invalid Input : 1//;\n1;2");
   });
 
-  test("should throw error when input delimiter is not used as a separator", () => {
+  it("should throw error when input delimiter is not used as a separator", () => {
     expect(() => add("//;\n1,2")).toThrow("Invalid Input : 1,2");
   });
 
-  test("should add when there is both user given delimiter and \\n", () => {
+  it("should add when there is both user given delimiter and \\n", () => {
     expect(add("//;\n1;2\n3")).toBe(6);
   });
 
-  test("should ignore numbers bigger than 1000, for 2 inputs", () => {
+  it("should ignore numbers bigger than 1000, for 2 inputs", () => {
     expect(add("1001,2")).toBe(2);
   });
 
-  test("should ignore numbers bigger than 1000, for 3 inputs", () => {
+  it("should ignore numbers bigger than 1000, for 3 inputs", () => {
     expect(add("1001,2,1000")).toBe(1002);
   });
 
