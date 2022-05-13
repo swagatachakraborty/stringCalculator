@@ -1,5 +1,5 @@
-const { isEmpty, isNegetive, isWithinThousand } = require("./utils/utils");
-const { NEW_LINE, DEFAULT_DEL } = require("./utils/consts");
+const { isEmpty, isNegative, isWithinThousand, invalidInputError, negativeNumberError } = require("./utils/utils");
+const { NEW_LINE, DEFAULT_DEL, DEL_SEPARATOR, DEL_INPUT_STARTER } = require("./utils/consts");
 
 const add = function (strInput) {
   if (isEmpty(strInput)) return 0;
@@ -8,7 +8,7 @@ const add = function (strInput) {
   const dels = parseDelimiters(delStr);
   const numbers = extractNumbers(numStr, dels);
 
-  throwExceptionForNegetiveNumbers(numbers);
+  throwExceptionForNegativeNumbers(numbers);
   return numbers
     .filter(isWithinThousand)
     .reduce((init, n) => init + n);
@@ -17,7 +17,7 @@ const add = function (strInput) {
 const separateDelsAndNums = function (inputString) {
   let delStr = DEFAULT_DEL, numStr = inputString;
 
-  if (inputString.startsWith("//") && inputString.includes(NEW_LINE)) {
+  if (inputString.startsWith(DEL_INPUT_STARTER) && inputString.includes(NEW_LINE)) {
     const i = inputString.indexOf(NEW_LINE);
     delStr = inputString.substring(2, i);
     numStr = inputString.substring(i + 1);
@@ -28,8 +28,8 @@ const separateDelsAndNums = function (inputString) {
 
 const parseDelimiters = function (dels) {
   return dels
-    .split("]")
-    .flatMap((x) => x.split("["))
+    .split(DEL_SEPARATOR.start)
+    .flatMap((x) => x.split(DEL_SEPARATOR.end))
     .filter((x) => !isEmpty(x));
 };
 
@@ -45,15 +45,15 @@ const extractNumbers = function (inputStr, dels) {
 
 const isNumber = function (str, s) {
   if (isEmpty(s) || isNaN(s)) {
-    throw `Invalid Input : ${str}`;
+    throw invalidInputError(str);
   }
   return true;
 };
 
-const throwExceptionForNegetiveNumbers = function (numbers) {
-  const negetives = numbers.filter(isNegetive);
-  if (negetives.length) {
-    throw `Negatives not allowed : ${negetives}`;
+const throwExceptionForNegativeNumbers = function (numbers) {
+  const negatives = numbers.filter(isNegative);
+  if (negatives.length) {
+    throw negativeNumberError(negatives);
   }
 };
 

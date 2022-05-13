@@ -1,7 +1,11 @@
 const isEmpty = (str) => str === "" || str === undefined;
 
-const isNegetive = (n) => n < 0;
+const isNegative = (n) => n < 0;
 
 const isWithinThousand = (n) => n <= 1000;
 
-module.exports = { isEmpty, isNegetive, isWithinThousand };
+const invalidInputError = (str) => `Invalid Input : ${str}`;
+
+const negativeNumberError = (negatives) => `Negatives not allowed : ${negatives}`;
+
+module.exports = {isEmpty, isNegative, isWithinThousand, invalidInputError, negativeNumberError};

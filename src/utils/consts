@@ -1,4 +1,0 @@
-const NEW_LINE = "\n";
-const DEFAULT_DEL = ",";
-
-module.exports = { NEW_LINE, DEFAULT_DEL };
