@@ -1,4 +1,4 @@
-const { isEmpty, isNegative, isWithinThousand, invalidInputError, negativeNumberError } = require("./utils/utils");
+const { isEmpty, isNegative, isWithinThousand, invalidInputError, negativeNumberError, isEven, sum } = require("./utils/utils");
 const { NEW_LINE, DEFAULT_DEL, DEL_SEPARATOR, DEL_INPUT_STARTER } = require("./utils/consts");
 
 const add = function (strInput) {
@@ -11,8 +11,21 @@ const add = function (strInput) {
   throwExceptionForNegativeNumbers(numbers);
   return numbers
     .filter(isWithinThousand)
-    .reduce((init, n) => init + n);
+    .reduce(sum);
 };
+
+const subOddFromEven = function (strInput) {
+  if (isEmpty(strInput)) return 0;
+
+  const { delStr, numStr } = separateDelsAndNums(strInput);
+  const dels = parseDelimiters(delStr);
+  const numbers = extractNumbers(numStr, dels);
+
+  const sumOfEvenNos = numbers.filter((_, i) => isEven(i)).reduce(sum);
+  const sumOfOddNos = numbers.filter((_, i)=> !isEven(i)).reduce(sum);
+
+  return sumOfEvenNos - sumOfOddNos;
+}
 
 const separateDelsAndNums = function (inputString) {
   let delStr = DEFAULT_DEL, numStr = inputString;
@@ -57,4 +70,4 @@ const throwExceptionForNegativeNumbers = function (numbers) {
   }
 };
 
-module.exports = add;
+module.exports = { add, subOddFromEven };

@@ -8,4 +8,8 @@ const invalidInputError = (str) => `Invalid Input : ${str}`;
 
 const negativeNumberError = (negatives) => `Negatives not allowed : ${negatives}`;
 
-module.exports = {isEmpty, isNegative, isWithinThousand, invalidInputError, negativeNumberError};
+const isEven = (n) => n % 2 === 0;
+
+const sum = (a, b) => a + b;
+
+module.exports = {isEmpty, isNegative, isWithinThousand, invalidInputError, negativeNumberError, isEven, sum};
